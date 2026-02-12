@@ -41,10 +41,10 @@ namespace TSL.Core.Application.Interfaces.Repositories
         // Agrega multiples entidades
         Task AddRangeAsync(IEnumerable<TEntity> entities);
 
-        void UpdateAsync(TEntity entity);
+        void Update(TEntity entity);
 
         // Actualiza multiples entidades
-        void UpdateRangeAsync(IEnumerable<TEntity> entities);
+        void UpdateRange(IEnumerable<TEntity> entities);
 
         void Remove(TEntity entity);
 

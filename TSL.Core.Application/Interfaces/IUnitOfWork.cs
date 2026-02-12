@@ -1,6 +1,6 @@
-﻿
+﻿using TSL.Core.Application.Interfaces.Repositories;
 
-namespace TSL.Core.Application.Interfaces.Repositories
+namespace TSL.Core.Application.Interfaces
 {
 
     // Patron Unit of Work - Coordina el trabajo de multiples repositorios y mantiene una unica transaccion de base de datos

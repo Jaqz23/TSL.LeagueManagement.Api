@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using TSL.Core.Application.Interfaces;
 using TSL.Core.Application.Interfaces.Repositories;
 using TSL.Infrastructure.Persistence.Contexts;
 

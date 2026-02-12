@@ -1,7 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TSL.Core.Application.Interfaces;
+using TSL.Core.Application.Interfaces.Repositories;
 using TSL.Infrastructure.Persistence.Contexts;
+using TSL.Infrastructure.Persistence.Repositories;
 
 namespace TSL.Infrastructure.Persistence
 {
@@ -24,7 +27,17 @@ namespace TSL.Infrastructure.Persistence
 
 
             #region Repositories
+
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
             // TODO: Agregar aqui los repositorios
+
+            #endregion
+
+            #region Unit of Work
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             #endregion
 
         }

@@ -17,8 +17,4 @@
     <ProjectReference Include="..\TSL.Core.Domain\TSL.Core.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Repositories\" />
-  </ItemGroup>
-
 </Project>
