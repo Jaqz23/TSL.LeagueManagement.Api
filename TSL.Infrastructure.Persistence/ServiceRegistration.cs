@@ -25,12 +25,16 @@ namespace TSL.Infrastructure.Persistence
 
             #endregion
 
-
             #region Repositories
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
-            // TODO: Agregar aqui los repositorios
+            services.AddScoped<ILigaRepository, LigaRepository>();
+            services.AddScoped<ITemporadaRepository, TemporadaRepository>();
+            services.AddScoped<IEquipoRepository, EquipoRepository>();
+            services.AddScoped<IPartidoRepository, PartidoRepository>();
+            services.AddScoped<ITablaPosicionRepository, TablaPosicionRepository>();
+            services.AddScoped<IPosicionEquipoRepository, PosicionEquipoRepository>();
 
             #endregion
 

@@ -8,6 +8,10 @@ namespace TSL.Core.Application.Interfaces.Repositories
         Task<TablaPosicion?> GetByTemporadaIdAsync(int temporadaId);
 
         // Obtiene la tabla con todas las posiciones ordenadas
+        // 1. Puntos DESC
+        // 2. Diferencia de goles DESC
+        // 3. Goles a favor DESC
+        // 4. Nombre alfabético ASC
         Task<TablaPosicion?> GetByTemporadaIdWithPosicionesAsync(int temporadaId);
 
         // Verifica si existe tabla de posiciones para una temporada
