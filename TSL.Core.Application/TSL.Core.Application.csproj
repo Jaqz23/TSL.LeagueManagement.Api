@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Dtos\" />
     <Folder Include="Interfaces\Services\" />
     <Folder Include="Mappings\" />
     <Folder Include="Services\" />
