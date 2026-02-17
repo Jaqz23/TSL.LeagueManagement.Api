@@ -1,12 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Extensions.DependencyInjection;
+using TSL.Core.Application.Mappings;
 
 namespace TSL.Core.Application
 {
-    internal class ServiceRegistration
+    public static class ServiceRegistration
     {
+        public static void AddApplicationLayer(this IServiceCollection services) 
+        {
+            services.AddAutoMapper(cfg => {
+                cfg.AddProfile<GeneralProfile>();
+            });
+
+            #region Services
+
+            //To do
+
+            #endregion
+
+        }
     }
 }
