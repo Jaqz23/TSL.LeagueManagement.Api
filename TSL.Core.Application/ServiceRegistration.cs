@@ -7,7 +7,8 @@ namespace TSL.Core.Application
     {
         public static void AddApplicationLayer(this IServiceCollection services) 
         {
-            services.AddAutoMapper(cfg => {
+            services.AddAutoMapper(cfg => 
+            {
                 cfg.AddProfile<GeneralProfile>();
             });
 
