@@ -9,7 +9,7 @@ namespace TSL.Core.Application.Interfaces.Services
         Task<BaseResponseDto<LigaDto>> GetByIdWithTemporadasAsync(int id);
 
         // Obtiene solo las ligas que están activas en el sistema
-        Task<BaseResponseDto<List<LigaDto>>> etLigasActivasAsync();
+        Task<BaseResponseDto<List<LigaDto>>> GetLigasActivasAsync();
 
         // Obtiene ligas activas con sus temporadas activas incluidas (para mostrar competiciones en curso)
         Task<BaseResponseDto<List<LigaDto>>> GetLigasConTemporadasActivasAsync();

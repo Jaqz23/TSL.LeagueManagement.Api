@@ -49,5 +49,24 @@ namespace TSL.Infrastructure.Persistence.Repositories
 
             _dbSet.RemoveRange(posiciones);
         }
+
+        public async Task<List<PosicionEquipo>> GetHistorialByEquipoAsync(int equipoId)
+        {
+            return await _context.PosicionesEquipos
+                .Include(p => p.Equipo)
+                .Include(p => p.TablaPosicion)
+                    .ThenInclude(t  => t.Temporada)
+                        .ThenInclude(temp => temp.Liga)
+                .Where(p => p.EquipoId == equipoId)
+                .OrderByDescending(p => p.TablaPosicion.Temporada.FechaInicio)
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
+        public async Task<bool> ExistePosicionAsync(int equipoId, int tablaPosicionId)
+        {
+            return await _context.PosicionesEquipos
+            .AnyAsync(p => p.EquipoId == equipoId && p.TablaPosicionId == tablaPosicionId);
+        }
     }
 }
