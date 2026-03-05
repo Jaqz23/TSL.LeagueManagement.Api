@@ -15,7 +15,7 @@ namespace TSL.Core.Application.Dtos.Common
         public T? Data { get; set; }
 
         // Lista de errores (si los hay)
-        public List<string>? Erros { get; set; }
+        public List<string>? Errors { get; set; }
 
 
         #region Factory Methods
@@ -38,7 +38,7 @@ namespace TSL.Core.Application.Dtos.Common
             {
                 Success = false,
                 Message = message,
-                Erros = errors ?? new List<string>()
+                Errors = errors ?? new List<string>()
             };
         }
 
@@ -49,7 +49,7 @@ namespace TSL.Core.Application.Dtos.Common
             {
                 Success = false,
                 Message = message,
-                Erros = new List<string> { error }
+                Errors = new List<string> { error }
             };
         }
 

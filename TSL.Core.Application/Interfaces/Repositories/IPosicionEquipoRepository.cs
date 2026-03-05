@@ -16,5 +16,11 @@ namespace TSL.Core.Application.Interfaces.Repositories
         // Elimina todas las posiciones de una tabla
         Task RemoveAllByTablaAsync(int tablaPosicionId);
 
+        // Obtiene el historial de posiciones de un equipo en todas las temporadas
+        Task<List<PosicionEquipo>> GetHistorialByEquipoAsync(int equipoId);
+
+        // Verifica si existe una posición para un equipo en una tabla específica
+        Task<bool> ExistePosicionAsync(int equipoId, int tablaPosicionId);
+
     }
 }
