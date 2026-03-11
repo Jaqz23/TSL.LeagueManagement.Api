@@ -46,15 +46,16 @@ namespace TSL.WebApi.Controllers
         {
             if (!response.Success) 
             {
-                if (response.Errors != null && response.Errors.Any()) 
-                {
-                    return BadRequestResponse(response);
-                }
 
                 if (response.Message.Contains("no encontrad", StringComparison.OrdinalIgnoreCase) ||
                     response.Message.Contains("no exist", StringComparison.OrdinalIgnoreCase))
                 {
                     return NotFoundResponse(response);
+                }
+
+                if (response.Errors != null && response.Errors.Any())
+                {
+                    return BadRequestResponse(response);
                 }
 
                 return InternalServerErrorResponse(response);

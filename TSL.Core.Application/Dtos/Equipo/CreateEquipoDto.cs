@@ -8,6 +8,7 @@ namespace TSL.Core.Application.Dtos.Equipo
         [StringLength(100, MinimumLength = 10, ErrorMessage = "El nombre debe tener entre 10 y 100 caracteres")]
         public string Nombre { get; set; } = string.Empty;
 
+        [Required(ErrorMessage = "La ciudad del equipo es obligatoria")]
         [StringLength(50, ErrorMessage = "La ciudad no puede exceder 50 caracteres")]
         public string? Ciudad { get; set; }
 
