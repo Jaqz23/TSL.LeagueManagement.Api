@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Mvc;
 using TSL.Core.Application.Dtos.Common;
 using TSL.Core.Application.Dtos.Liga;
 using TSL.Core.Application.Interfaces.Services;
 
 namespace TSL.WebApi.Controllers.v1
 {
+    [ApiVersion("1.0")]
     public class LigasController : BaseApiController
     {
         private readonly ILigaService _ligaService;
