@@ -14,7 +14,7 @@
 
                     options.RoutePrefix = "swagger";
 
-                    options.DocumentTitle = "TSL API - Documentation";
+                    options.DocumentTitle = "TSL API";
                     options.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
                     options.DefaultModelsExpandDepth(-1); // Ocultar modelos por defecto
                     options.DisplayRequestDuration();

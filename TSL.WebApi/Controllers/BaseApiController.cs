@@ -8,6 +8,8 @@ namespace TSL.WebApi.Controllers
     [Produces("application/json")]
     public abstract class BaseApiController : ControllerBase
     {
+        #region Responses
+
         protected IActionResult OkResponse <T>(BaseResponseDto<T> response) 
         {
             return Ok(response);
@@ -38,6 +40,8 @@ namespace TSL.WebApi.Controllers
             return StatusCode(StatusCodes.Status500InternalServerError, response);
         }
 
+        #endregion
+
         // Maneja la respuesta del servicio y retorna el codigo HTTP apropiado
         protected IActionResult HandleServiceResponse<T>(
             BaseResponseDto<T> response, 
@@ -47,8 +51,9 @@ namespace TSL.WebApi.Controllers
             if (!response.Success) 
             {
 
-                if (response.Message.Contains("no encontrad", StringComparison.OrdinalIgnoreCase) ||
-                    response.Message.Contains("no exist", StringComparison.OrdinalIgnoreCase))
+                bool esNotFound = EsNotFound(response.Message, response.Errors);
+
+                if (esNotFound) 
                 {
                     return NotFoundResponse(response);
                 }
@@ -84,6 +89,45 @@ namespace TSL.WebApi.Controllers
             }
 
             return OkResponse(response);
+
+        }
+
+        private bool EsNotFound(string message, List<string>? errors) 
+        {
+            var patrones = new[]
+            {
+                "no encontrad",   // "Liga no encontrada", "Temporada no encontrada"
+                "no exist",       // "No existe un registro..."
+                "no tiene",       // "La liga no tiene una temporada activa"
+                "no hay"          // "No hay temporada activa"
+            };
+
+            if (!string.IsNullOrEmpty(message)) 
+            {
+                foreach (var patron in patrones) 
+                {
+                    if (message.Contains(patron, StringComparison.OrdinalIgnoreCase))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            if (errors != null && errors.Any()) 
+            {
+                foreach (var error in errors) 
+                {
+                    foreach(var patron in patrones) 
+                    {
+                        if (error.Contains(patron, StringComparison.OrdinalIgnoreCase)) 
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            return false;
 
         }
 
