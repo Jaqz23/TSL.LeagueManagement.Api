@@ -31,7 +31,6 @@ namespace TSL.Core.Application.Dtos.Partido
         public string EstadoTexto => Estado switch
         {
             EstadoPartido.Programado => "Programado",
-            EstadoPartido.EnCurso => "En Curso",
             EstadoPartido.Jugado => "Jugado",
             _ => "Desconocido"
         };

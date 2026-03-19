@@ -115,16 +115,16 @@ namespace TSL.Core.Application.Mappings
 
             // UpdateDto -> Entidad
             CreateMap<UpdatePartidoDto, Partido>()
-                .ForMember(dest => dest.Id, opt => opt.Ignore())
-                .ForMember(dest => dest.TemporadaId, opt => opt.Ignore())
-                .ForMember(dest => dest.EquipoLocalId, opt => opt.Ignore())
-                .ForMember(dest => dest.EquipoVisitanteId, opt => opt.Ignore())
-                .ForMember(dest => dest.Temporada, opt => opt.Ignore())
-                .ForMember(dest => dest.EquipoLocal, opt => opt.Ignore())
-                .ForMember(dest => dest.EquipoVisitante, opt => opt.Ignore());
+                .ForMember(dest => dest.TemporadaId, opt => opt.MapFrom(src => src.TemporadaId))
+                .ForMember(dest => dest.EquipoLocalId, opt => opt.MapFrom(src => src.EquipoLocalId))
+                .ForMember(dest => dest.EquipoVisitanteId, opt => opt.MapFrom(src => src.EquipoVisitanteId))
+                .ForMember(dest => dest.Fecha, opt => opt.MapFrom(src => src.Fecha))
+                .ForMember(dest => dest.Jornada, opt => opt.MapFrom(src => src.Jornada));
 
             // RegistrarResultadoDto -> Partido (actualización parcial)
             CreateMap<RegistrarResultadoDto, Partido>()
+                .ForMember(dest => dest.GolesLocal, opt => opt.MapFrom(src => src.GolesLocal))
+                .ForMember(dest => dest.GolesVisitante, opt => opt.MapFrom(src => src.GolesVisitante))
                 .ForMember(dest => dest.Estado, opt => opt.MapFrom(src => Domain.Enums.EstadoPartido.Jugado));
 
             #endregion

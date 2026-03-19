@@ -6,10 +6,8 @@ namespace TSL.Core.Domain.Enums
         // Partido programado
         Programado = 0,
 
-        // Partido en curso
-        EnCurso = 1,
-
         // Partido finalizado
-        Jugado = 2
+        Jugado = 1
+
     }
 }

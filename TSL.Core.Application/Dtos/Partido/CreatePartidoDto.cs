@@ -8,7 +8,7 @@ namespace TSL.Core.Application.Dtos.Partido
         public DateTime Fecha { get; set; }
 
         [Required(ErrorMessage = "La jornada es obligatoria")]
-        [Range(1, int.MaxValue, ErrorMessage = "La jornada debe ser mayor a 0")]
+        [Range(1, 30, ErrorMessage = "La jornada debe estar entre 1 y 30")]
         public int Jornada { get; set; }
 
         [Required(ErrorMessage = "El ID de la temporada es obligatorio")]

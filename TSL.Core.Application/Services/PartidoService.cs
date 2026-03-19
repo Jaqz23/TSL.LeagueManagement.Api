@@ -47,7 +47,7 @@ namespace TSL.Core.Application.Services
             if (!temporada.Estado) 
             {
                 return BaseResponseDto<bool>.ErrorResponse(
-                    "Temporada inactica", 
+                    "Temporada inactiva", 
                     "Solo se pueden crear partidos con temporadas activas"
                 );
             }
@@ -354,7 +354,6 @@ namespace TSL.Core.Application.Services
                 var estadoTexto = estado switch
                 {
                     EstadoPartido.Programado => "programados",
-                    EstadoPartido.EnCurso => "en curso",
                     EstadoPartido.Jugado => "jugados",
                     _ => "con estado desconocido"
                 };
