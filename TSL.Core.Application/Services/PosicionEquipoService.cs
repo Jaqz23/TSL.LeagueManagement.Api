@@ -155,6 +155,24 @@ namespace TSL.Core.Application.Services
 
                 var dtos = _mapper.Map<List<PosicionEquipoDto>>(posiciones);
 
+                // Calcular posicion real en cada temporada
+                foreach (var dto in dtos) 
+                {
+                    var todasPosicionesTabla = await _unitOfWork.PosicionEquipoRepository.GetByTablaPosicionIdAsync(dto.TablaPosicionId);
+
+                    // Ordenar según criterios deportivos
+                    var posicionesOrdenadas = todasPosicionesTabla
+                        .OrderByDescending(p => p.Puntos)
+                        .ThenByDescending(p => p.GolesAFavor - p.GolesEnContra)
+                        .ThenByDescending(p => p.GolesAFavor)
+                        .ThenBy(p => p.Equipo.Nombre)
+                        .ToList();
+
+                    // Encontrar la posicion del equipo
+                    dto.Posicion = posicionesOrdenadas.FindIndex(p => p.EquipoId == equipoId) + 1;
+                }
+
+
                 return BaseResponseDto<List<PosicionEquipoDto>>.SuccessResponse(
                     dtos,
                     $"Se obtuvieron {dtos.Count} posiciones del historial del equipo '{equipo.Nombre}'"

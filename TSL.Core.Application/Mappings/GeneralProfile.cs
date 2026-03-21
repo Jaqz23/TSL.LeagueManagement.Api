@@ -19,7 +19,7 @@ namespace TSL.Core.Application.Mappings
             // Entidad -> DTO de lectura
 
             CreateMap<Liga, LigaDto>()
-                .ForMember(dest => dest.CantidadTemporadas, 
+                .ForMember(dest => dest.CantidadTemporadas,
                     opt => opt.MapFrom(src => src.Temporadas.Count));
 
             // CreateDto -> Entidad
@@ -40,9 +40,9 @@ namespace TSL.Core.Application.Mappings
 
             // Entidad -> DTO de lectura
             CreateMap<Temporada, TemporadaDto>()
-                .ForMember(dest => dest.NombreLiga, 
+                .ForMember(dest => dest.NombreLiga,
                 opt => opt.MapFrom(src => src.Liga.Nombre))
-                .ForMember(dest => dest.CantidadPartidos, 
+                .ForMember(dest => dest.CantidadPartidos,
                 opt => opt.MapFrom(src => src.Partidos.Count));
 
             // CreateDto -> Entidad
@@ -67,7 +67,7 @@ namespace TSL.Core.Application.Mappings
 
             // Entidad -> DTO de lectura
             CreateMap<Equipo, EquipoDto>()
-                .ForMember(dest => dest.CantidadPartidos, 
+                .ForMember(dest => dest.CantidadPartidos,
                     opt => opt.MapFrom(src => src.PartidosLocal.Count + src.PartidosVisitante.Count));
 
             // CreateDto -> Entidad
@@ -135,7 +135,7 @@ namespace TSL.Core.Application.Mappings
             CreateMap<TablaPosicion, TablaPosicionDto>()
                 .ForMember(dest => dest.NombreTemporada, opt => opt.MapFrom(src => src.Temporada.Nombre))
                 .ForMember(dest => dest.NombreLiga, opt => opt.MapFrom(src => src.Temporada.Liga.Nombre))
-                .ForMember(dest => dest.Posiciones, 
+                .ForMember(dest => dest.Posiciones,
                     opt => opt.MapFrom(src => src.Posiciones
                         .OrderByDescending(p => p.Puntos)
                         .ThenByDescending(p => p.GolesAFavor - p.GolesEnContra)
@@ -154,7 +154,15 @@ namespace TSL.Core.Application.Mappings
                     opt => opt.MapFrom(src => src.Equipo.Escudo))
                 .ForMember(dest => dest.DiferenciaGoles,
                 opt => opt.MapFrom(src => src.GolesAFavor - src.GolesEnContra))
+
+                .ForMember(dest => dest.TemporadaId,
+                 opt => opt.MapFrom(src => src.TablaPosicion.TemporadaId))
+                .ForMember(dest => dest.TemporadaNombre,
+                 opt => opt.MapFrom(src => src.TablaPosicion.Temporada.Nombre))
+                .ForMember(dest => dest.LigaNombre,
+                opt => opt.MapFrom(src => src.TablaPosicion.Temporada.Liga.Nombre))
                 .ForMember(dest => dest.Posicion, opt => opt.Ignore());
+
 
             #endregion
 

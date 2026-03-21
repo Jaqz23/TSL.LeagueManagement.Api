@@ -41,6 +41,14 @@ namespace TSL.Infrastructure.Persistence.Repositories
                 .FirstOrDefaultAsync(pe => pe.EquipoId == equipoId && pe.TablaPosicion.TemporadaId == temporadaId);
         }
 
+        public async Task<List<PosicionEquipo>> GetByTablaPosicionIdAsync(int tablaPosicionId) 
+        {
+            return await _context.PosicionesEquipos
+                .Include(p => p.Equipo)
+                .Where(p => p.TablaPosicionId == tablaPosicionId) 
+                .ToListAsync();
+        }
+
         public async Task RemoveAllByTablaAsync(int tablaPosicionId)
         {
             var posiciones = await _dbSet

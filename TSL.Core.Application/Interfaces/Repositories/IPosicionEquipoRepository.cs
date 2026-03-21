@@ -13,6 +13,9 @@ namespace TSL.Core.Application.Interfaces.Repositories
         // Obtiene la posicion de un equipo en la temporada actual
         Task<PosicionEquipo?> GetPosicionActualEquipoAsync(int equipoId, int temporadaId);
 
+        // Obtiene todas las posiciones de equipos de una tabla especifica
+        Task<List<PosicionEquipo>> GetByTablaPosicionIdAsync (int tablaPosicionId);
+
         // Elimina todas las posiciones de una tabla
         Task RemoveAllByTablaAsync(int tablaPosicionId);
 

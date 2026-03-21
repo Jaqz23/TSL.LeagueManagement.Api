@@ -10,6 +10,11 @@ namespace TSL.Core.Application.Dtos.TablaPosicion
         public string NombreEquipo { get; set; } = string.Empty;
         public string? EscudoEquipo { get; set; }
 
+        public int TablaPosicionId { get; set; }
+        public int TemporadaId { get; set; }
+        public string? TemporadaNombre { get; set; }
+        public string? LigaNombre { get; set; }
+
         //Estadisticas
         public int Posicion { get; set; } // Calculada al ordenar
         public int PartidosJugados { get; set; }
