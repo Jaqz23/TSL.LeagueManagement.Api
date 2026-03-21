@@ -10,7 +10,7 @@ namespace TSL.WebApi.Extensions
         {
             services.AddSwaggerGen(options =>
             {
-                // Cargar comentarios XML de todos los proyectos
+                
                 var xmlFiles = Directory.GetFiles(AppContext.BaseDirectory, "*.xml", SearchOption.TopDirectoryOnly).ToList();
                 xmlFiles.ForEach(xmlFile => options.IncludeXmlComments(xmlFile));
 
@@ -38,7 +38,7 @@ namespace TSL.WebApi.Extensions
                 options.DescribeAllParametersInCamelCase();
 
 
-                // Configuración de JWT Bearer Authentication
+                // Configuracion de JWT Bearer Authentication
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Name = "Authorization",
@@ -82,21 +82,20 @@ namespace TSL.WebApi.Extensions
         {
             services.AddApiVersioning(config =>
             {
-                // version por defecto
+                
                 config.DefaultApiVersion = new ApiVersion(1, 0);
 
                 config.AssumeDefaultVersionWhenUnspecified = true;
 
-                // Reportar versiones soportadas en headers de respuesta
                 config.ReportApiVersions = true;
 
-                // Leer versión desde URL (api/v1/equipos)
+                // Leer version desde URL
             }).AddApiExplorer(options =>
             {
-                // Formato de versión en Swagger: 'v'major[.minor]
+                // Formato de version en Swagger: 'v'major[.minor]
                 options.GroupNameFormat = "'v'VVV";
 
-                // Sustituir versión en rutas
+                // Sustituir version en rutas
                 options.SubstituteApiVersionInUrl = true;
             });
 
@@ -119,7 +118,7 @@ namespace TSL.WebApi.Extensions
 
                 options.AddPolicy("ProductionPolicy", builder =>
                 {
-                    // Obtener orígenes permitidos desde appsettings.json
+                    // Obtener origenes permitidos desde appsettings.json
                     var allowdOrigins = configuration.GetSection("Cors:AllowedOrigins").Get<string[]>()
                                         ?? new[] { "https://localhost:4200" };
 
@@ -137,7 +136,7 @@ namespace TSL.WebApi.Extensions
         }
 
 
-        // Configurar controladores con opciones específicas
+        // Configurar controladores con opciones especificas
         public static IServiceCollection AddControllersExtension(this IServiceCollection services)
         {
             services.AddControllers(options =>

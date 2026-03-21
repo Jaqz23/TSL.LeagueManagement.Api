@@ -1,6 +1,5 @@
 ﻿using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 using TSL.Core.Application.Dtos.Common;
 using TSL.Core.Application.Dtos.Partido;
 using TSL.Core.Application.Interfaces.Services;
@@ -226,7 +225,6 @@ namespace TSL.WebApi.Controllers.v1
         }
 
         #endregion
-
 
 
     }

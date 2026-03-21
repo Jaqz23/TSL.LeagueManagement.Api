@@ -13,6 +13,7 @@ builder.Services.AddApplicationLayer();
 
 builder.Services.AddSwaggerGen();
 builder.Services.AddSwaggerExtension();
+
 builder.Services.AddApiVersioningExtension();
 builder.Services.AddCorsExtension(builder.Configuration);
 builder.Services.AddControllersExtension();
