@@ -11,6 +11,25 @@ namespace TSL.Infrastructure.Persistence.Repositories
         {
         }
 
+        #region Override para incluir las temporadas
+
+        public override async Task<Liga?> GetByIdAsync(int id)
+        {
+            return await _dbSet
+                .Include(l => l.Temporadas)
+                .FirstOrDefaultAsync(l => l.Id == id);
+        }
+
+        public override async Task<List<Liga>> GetAllAsync()
+        {
+            return await _dbSet
+                .Include(l => l.Temporadas)
+                .OrderByDescending(l => l.FechaCreacion)
+                .ToListAsync();
+        }
+
+        #endregion
+
         public async Task<Liga?> GetByIdWithTemporadasAsync(int id)
         {
             return await _dbSet

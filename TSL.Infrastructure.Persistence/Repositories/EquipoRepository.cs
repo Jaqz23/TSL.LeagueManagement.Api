@@ -11,6 +11,30 @@ namespace TSL.Infrastructure.Persistence.Repositories
         {
         }
 
+
+        #region Override para incluir los partidos
+
+        public override async Task<Equipo?> GetByIdAsync(int id)
+        {
+            return await _dbSet
+                .Include(e => e.PartidosLocal)
+                .Include(e => e.PartidosVisitante)
+                .FirstOrDefaultAsync(e => e.Id == id);
+        }
+
+
+        public override async Task<List<Equipo>> GetAllAsync()
+        {
+            return await _dbSet
+                .Include(e => e.PartidosLocal)
+                .Include(e => e.PartidosVisitante)
+                .OrderBy(e => e.Nombre)
+                .ToListAsync();
+        }
+
+        #endregion
+
+
         public async Task<bool> ExisteNombreAsync(string nombre, int? excludeId = null)
         {
             var query = _dbSet.Where(e => e.Nombre.ToLower() == nombre.ToLower());

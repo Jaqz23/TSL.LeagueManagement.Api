@@ -11,12 +11,29 @@ namespace TSL.Infrastructure.Persistence.Repositories
         { 
         }
 
+
+        #region Override para incluir las relaciones completas
+
+        public override async Task<PosicionEquipo?> GetByIdAsync(int id)
+        {
+            return await _dbSet
+                .Include(p => p.Equipo)
+                .Include(p => p.TablaPosicion)
+                    .ThenInclude(t => t.Temporada)
+                        .ThenInclude(temp => temp.Liga)
+                .FirstOrDefaultAsync(p => p.Id == id);
+        }
+
+        #endregion
+
+
         public async Task<PosicionEquipo?> GetByEquipoAndTablaAsync(int equipoId, int tablaPosicionId)
         {
             return await _dbSet
                 .Include(pe => pe.Equipo)
                 .Include(pe => pe.TablaPosicion)
                     .ThenInclude(pe => pe.Temporada)
+                        .ThenInclude(temp => temp.Liga)
                 .FirstOrDefaultAsync(pe => pe.EquipoId == equipoId && pe.TablaPosicionId == tablaPosicionId);
         }
 

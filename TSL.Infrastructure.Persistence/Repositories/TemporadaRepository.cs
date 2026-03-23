@@ -11,6 +11,30 @@ namespace TSL.Infrastructure.Persistence.Repositories
         {
         }
 
+
+        #region Override para incluir los partidos
+
+        public override async Task<Temporada?> GetByIdAsync(int id)
+        {
+            return await _dbSet
+                .Include(t => t.Liga)
+                .Include(t => t.Partidos)
+                .FirstOrDefaultAsync(t => t.Id == id);
+        }
+
+
+        public override async Task<List<Temporada>> GetAllAsync()
+        {
+            return await _dbSet
+                .Include(t => t.Liga)
+                .Include(t => t.Partidos)
+                .OrderByDescending(t => t.FechaInicio)
+                .ToListAsync();
+        }
+
+
+        #endregion
+
         public async Task<Temporada?> GetByIdWithDetallesAsync(int id)
         {
             return await _dbSet
@@ -29,6 +53,7 @@ namespace TSL.Infrastructure.Persistence.Repositories
         {
             return await _dbSet
                 .Include(t => t.Liga)
+                .Include (t => t.Partidos)
                 .Include(t => t.TablaPosicion)
                 .FirstOrDefaultAsync(t => t.LigaId == ligaId && t.Estado == true);
         }
@@ -37,6 +62,7 @@ namespace TSL.Infrastructure.Persistence.Repositories
         {
             return await _dbSet 
                 .Include(t => t.Liga)
+                .Include(t => t.Partidos)
                 .Where(t => t.LigaId == ligaId)
                 .OrderByDescending(t => t.FechaInicio)
                 .ToListAsync();
@@ -52,6 +78,7 @@ namespace TSL.Infrastructure.Persistence.Repositories
         {
             return await _dbSet
                 .Include(t => t.Liga)
+                .Include(t => t.Partidos)
                 .Where(t => t.Estado == true)
                 .OrderByDescending(t =>t.FechaInicio)
                 .ToListAsync();

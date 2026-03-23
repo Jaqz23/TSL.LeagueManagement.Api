@@ -57,11 +57,21 @@ namespace TSL.Core.Application.Services
 
                 var dto = _mapper.Map<PosicionEquipoDto>(posicion);
 
+                var todasPosicionesTabla = await _unitOfWork.PosicionEquipoRepository.GetByTablaPosicionIdAsync(tablaPosicionId);
+
+                var posicionesOrdenadas = todasPosicionesTabla
+                    .OrderByDescending(p => p.Puntos)
+                    .ThenByDescending(p => p.GolesAFavor - p.GolesEnContra)
+                    .ThenByDescending(p => p.GolesAFavor)
+                    .ThenBy(p => p.Equipo.Nombre)
+                    .ToList();
+
+                dto.Posicion = posicionesOrdenadas.FindIndex(p => p.EquipoId == equipoId) + 1;
+
                 return BaseResponseDto<PosicionEquipoDto>.SuccessResponse(
                     dto,
                     $"Posición del equipo '{equipo.Nombre}' obtenida correctamente"
                 );
-
 
             }
             catch (Exception ex) 
@@ -120,7 +130,18 @@ namespace TSL.Core.Application.Services
                 }
 
                 var dto = _mapper.Map<PosicionEquipoDto>(posicion);
-                
+
+                var todasPosicionesTabla = await _unitOfWork.PosicionEquipoRepository.GetByTablaPosicionIdAsync(tabla.Id);
+
+                var posicionesOrdenadas = todasPosicionesTabla
+                    .OrderByDescending(p => p.Puntos)
+                    .ThenByDescending(p => p.GolesAFavor - p.GolesEnContra)
+                    .ThenByDescending(p => p.GolesAFavor)
+                    .ThenBy(p => p.Equipo.Nombre)
+                    .ToList();
+
+                dto.Posicion = posicionesOrdenadas.FindIndex(p => p.EquipoId == equipoId) + 1;
+
                 return BaseResponseDto<PosicionEquipoDto>.SuccessResponse(
                     dto, 
                     $"Posición actual del equipo '{equipo.Nombre}' en la temporada '{temporada.Nombre}'");
