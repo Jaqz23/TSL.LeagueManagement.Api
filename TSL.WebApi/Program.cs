@@ -1,4 +1,5 @@
 using TSL.Core.Application;
+using TSL.Infrastructure.Identity;
 using TSL.Infrastructure.Persistence;
 using TSL.WebApi.Extensions;
 
@@ -10,6 +11,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddPersistenceInfrastructure(builder.Configuration);
 builder.Services.AddApplicationLayer();
+builder.Services.AddIdentityInfrastructure(builder.Configuration);
 
 builder.Services.AddSwaggerGen();
 builder.Services.AddSwaggerExtension();
@@ -36,7 +38,7 @@ else
 }
 
   
-//app.UseAuthentication();
+app.UseAuthentication();
 
 app.UseAuthorization();
 

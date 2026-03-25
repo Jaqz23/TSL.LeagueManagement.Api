@@ -7,8 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Context\" />
-    <Folder Include="Entities\" />
     <Folder Include="Services\" />
     <Folder Include="Seeds\" />
   </ItemGroup>
