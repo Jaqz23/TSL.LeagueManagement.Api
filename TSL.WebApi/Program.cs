@@ -24,9 +24,16 @@ builder.Services.AddEndpointsApiExplorer();
 
 var app = builder.Build();
 
-app.UseSwaggerExtension(app.Environment);
+using (var scope = app.Services.CreateScope()) 
+{
+    var services = scope.ServiceProvider;
+    await services.RunIdentitySeeds();
+}
 
+
+app.UseSwaggerExtension(app.Environment);
 app.UseHttpsRedirection();
+
 
 if (app.Environment.IsDevelopment()) 
 {
@@ -37,7 +44,7 @@ else
     app.UseCors("ProductionPolicy");
 }
 
-  
+
 app.UseAuthentication();
 
 app.UseAuthorization();

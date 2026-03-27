@@ -5,7 +5,6 @@ using TSL.Core.Application.Dtos.Liga;
 using TSL.Core.Application.Dtos.Partido;
 using TSL.Core.Application.Dtos.TablaPosicion;
 using TSL.Core.Application.Dtos.Temporada;
-using TSL.Core.Application.Dtos.Users;
 using TSL.Core.Domain.Entities;
 
 namespace TSL.Core.Application.Mappings
@@ -166,30 +165,6 @@ namespace TSL.Core.Application.Mappings
 
             #endregion
 
-            #region UserProfile
-
-            CreateMap<LoginDto, AuthenticationRequest>()
-                .ReverseMap()
-                .ForMember(dest => dest.Error, opt => opt.Ignore())
-                .ForMember(dest => dest.HasError, opt => opt.Ignore());
-
-            CreateMap<SaveUserDto, RegisterRequest>()
-                .ReverseMap()
-                .ForMember(dest => dest.Roles, opt => opt.Ignore())
-                .ForMember(dest => dest.Error, opt => opt.Ignore())
-                .ForMember(dest => dest.HasError, opt => opt.Ignore());
-
-            CreateMap<ForgotPasswordDto, ForgotPasswordRequest>()
-                .ReverseMap()
-                .ForMember(dest => dest.Error, opt => opt.Ignore())
-                .ForMember(dest => dest.HasError, opt => opt.Ignore());
-
-            CreateMap<ResetPasswordDto, ResetPasswordRequest>()
-                .ReverseMap()
-                .ForMember(dest => dest.Error, opt => opt.Ignore())
-                .ForMember(dest => dest.HasError, opt => opt.Ignore());
-
-            #endregion
         }
     }
 }

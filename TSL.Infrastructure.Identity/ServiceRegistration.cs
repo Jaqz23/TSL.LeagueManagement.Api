@@ -10,6 +10,7 @@ using System.Text.Json;
 using TSL.Core.Application.Dtos.Common;
 using TSL.Infrastructure.Identity.Context;
 using TSL.Infrastructure.Identity.Entities;
+using TSL.Infrastructure.Identity.Seeds;
 using TSL.Infrastructure.Identity.Settings;
 
 namespace TSL.Infrastructure.Identity
@@ -166,7 +167,28 @@ namespace TSL.Infrastructure.Identity
         }
 
         //Ejecuta los seeds de datos iniciales
+        public static async Task RunIdentitySeeds (this IServiceProvider serviceProvider) 
+        {
+            using var scope = serviceProvider.CreateScope();
+            var services = scope.ServiceProvider;
 
+            try
+            {
+                var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+                var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+                await DefaultRoles.SeedAsync(userManager, roleManager);
+
+                await DefaultSuperAdminUser.SeedAsync(userManager, roleManager);
+                await DefaultAdminUser.SeedAsync(userManager, roleManager);
+                await DefaultBasicUser.SeedAsync(userManager, roleManager);
+
+            }
+            catch (Exception ex) 
+            {
+                Console.WriteLine($"Error ejecutando seeds: {ex.Message}");
+            }
+        }
 
     }
 }
