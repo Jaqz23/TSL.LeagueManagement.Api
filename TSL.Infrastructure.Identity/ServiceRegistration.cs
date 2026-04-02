@@ -8,9 +8,11 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Text.Json;
 using TSL.Core.Application.Dtos.Common;
+using TSL.Core.Application.Interfaces.Services;
 using TSL.Infrastructure.Identity.Context;
 using TSL.Infrastructure.Identity.Entities;
 using TSL.Infrastructure.Identity.Seeds;
+using TSL.Infrastructure.Identity.Services;
 using TSL.Infrastructure.Identity.Settings;
 
 namespace TSL.Infrastructure.Identity
@@ -158,7 +160,9 @@ namespace TSL.Infrastructure.Identity
 
             #region Registrar Servicios de Identity
 
-            //services.AddTransient<IAccountService, AccountService>();
+            services.AddTransient<IAccountService, AccountService>();
+
+            services.AddHttpContextAccessor();
 
             #endregion
 

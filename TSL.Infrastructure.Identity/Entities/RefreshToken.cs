@@ -32,6 +32,6 @@ namespace TSL.Infrastructure.Identity.Entities
         [Required]
         public string ApplicationUserId { get; set; } = string.Empty;
 
-        public ApplicationUser? ApplicationUser { get; set; }
+        public virtual ApplicationUser? ApplicationUser { get; set; }
     }
 }
