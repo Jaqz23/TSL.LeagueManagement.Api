@@ -8,8 +8,11 @@ namespace TSL.Core.Application.Interfaces.Services
         // Autentica un usuario con email y contraseña
         Task<AuthenticationResponse> AuthenticateAsync(AuthenticationRequest request);
 
-        // Registra un nuevo usuario en el sistema
+        // Registra un nuevo usuario con el rol user
         Task<RegisterResponse> RegisterAsync(RegisterRequest request, string? origin = null);
+
+        // Registra un nuevo usuario con rol Admin
+        Task<RegisterResponse> RegisterAdminAsync(RegisterRequest request, string? origin = null);
 
         // Solicita un token de recuperacion de contraseña
         Task<ForgotPasswordResponse> ForgotPasswordAsync(ForgotPasswordRequest request, string origin);

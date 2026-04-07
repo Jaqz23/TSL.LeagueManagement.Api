@@ -228,72 +228,12 @@ namespace TSL.Infrastructure.Identity.Services
 
         public async Task<RegisterResponse> RegisterAsync(RegisterRequest request, string? origin = null) 
         {
-            var existingUserByUsername = await _userManager.FindByNameAsync(request.UserName);
-            if (existingUserByUsername != null) 
-            {
-                return new RegisterResponse
-                {
-                    HasError = true,
-                    Error = "El nombre de Usuario ya está en uso"
-                };
-            }
+            return await RegisterUserWithRoleAsync(request, Roles.User, origin);
+        }
 
-            var existingUserByEmail = await _userManager.FindByEmailAsync(request.Email);
-            if (existingUserByEmail != null) 
-            {
-                return new RegisterResponse 
-                {
-                    HasError = true,
-                    Error = "El email ya está registrado"
-                };
-            }
-
-            // Crea el usuario
-            var user = new ApplicationUser 
-            {
-                Email = request.Email,
-                UserName = request.UserName,
-                FirstName = request.Nombre,
-                LastName = request.Apellido,
-                PhoneNumber = request.PhoneNumber,
-                EmailConfirmed = false
-            };
-
-            var result = await _userManager.CreateAsync(user, request.Password);
-
-            if (!result.Succeeded) 
-            {
-                return new RegisterResponse 
-                {
-                    HasError = true,
-                    Error = string.Join(", ", result.Errors.Select(e => e.Description))
-                };
-            }
-
-            // Asignar rol de User por defecto
-            await _userManager.AddToRoleAsync(user, Roles.User.ToString());
-
-            // TODO: Implementar cuando tenga servicio de email
-            // if (!string.IsNullOrEmpty(origin))
-            // {
-            //     var verificationToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            //     var encodedToken = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(verificationToken));
-            //     var verificationUri = $"{origin}/confirm-email?userId={user.Id}&token={encodedToken}";
-            //     
-            //     // await _emailService.SendEmailAsync(new EmailRequest
-            //     // {
-            //     //     To = user.Email,
-            //     //     Subject = "Confirma tu cuenta - TSL",
-            //     //     Body = $"Por favor confirma tu cuenta haciendo clic aquí: {verificationUri}"
-            //     // });
-            // }
-
-            return new RegisterResponse 
-            {
-                UserId = user.Id,
-                HasError = false
-            };
-
+        public async Task<RegisterResponse> RegisterAdminAsync(RegisterRequest request, string? origin = null)
+        {
+            return await RegisterUserWithRoleAsync(request, Roles.Admin, origin);
         }
 
         #endregion
@@ -706,6 +646,70 @@ namespace TSL.Infrastructure.Identity.Services
             }
 
             return "0.0.0.0";
+
+        }
+
+
+        private async Task<RegisterResponse> RegisterUserWithRoleAsync(RegisterRequest request, Roles role, string? origin = null) 
+        {
+            // Validar que el username sea unico
+            var existingUserByUsername = await _userManager.FindByNameAsync(request.UserName);
+            if (existingUserByUsername != null) 
+            {
+                return new RegisterResponse
+                {
+                    HasError = true,
+                    Error = "El nombre de usuario ya está en uso"
+                };
+            }
+
+            // Validar que el email sea unico
+            var existingUserByEmail = await _userManager.FindByEmailAsync(request.Email);
+            if (existingUserByEmail != null) 
+            {
+                return new RegisterResponse
+                {
+                    HasError = true,
+                    Error = "El email ya registrado"
+                };
+            }
+
+            // Crear el usuario
+            var user = new ApplicationUser
+            {
+                Email = request.Email,
+                UserName = request.UserName,
+                FirstName = request.Nombre,
+                LastName = request.Apellido,
+                PhoneNumber = request.PhoneNumber,
+                EmailConfirmed = role != Roles.User // true para Admin, false para User
+            };
+
+            var result = await _userManager.CreateAsync(user, request.Password);
+
+            if (!result.Succeeded) 
+            {
+                return new RegisterResponse 
+                {
+                    HasError = true,
+                    Error = string.Join(", ", result.Errors.Select(e => e.Description))
+                };
+            }
+
+            // Asignar rol especificado
+            await _userManager.AddToRoleAsync(user, role.ToString());
+
+            // TODO: Enviar email de confirmación para Users
+            // if (role == Roles.User && !string.IsNullOrEmpty(origin))
+            // {
+            //     await SendVerificationEmailAsync(user, origin);
+            // }
+
+            return new RegisterResponse 
+            {
+                UserId = user.Id,
+                HasError = false
+            };
 
         }
 
