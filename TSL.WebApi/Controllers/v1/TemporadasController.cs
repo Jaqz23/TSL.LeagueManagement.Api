@@ -1,4 +1,5 @@
 ﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TSL.Core.Application.Dtos.Common;
 using TSL.Core.Application.Dtos.Temporada;
@@ -20,6 +21,7 @@ namespace TSL.WebApi.Controllers.v1
         #region GET Endpoints
 
         [HttpGet]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(BaseResponseDto<List<TemporadaDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(BaseResponseDto<List<TemporadaDto>>), StatusCodes.Status500InternalServerError)]
@@ -77,6 +79,7 @@ namespace TSL.WebApi.Controllers.v1
 
 
         [HttpGet("liga/{ligaId}")]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(BaseResponseDto<List<TemporadaDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(BaseResponseDto<List<TemporadaDto>>), StatusCodes.Status404NotFound)]
@@ -112,6 +115,7 @@ namespace TSL.WebApi.Controllers.v1
 
 
         [HttpGet("liga/{ligaId}/activa")]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(BaseResponseDto<TemporadaDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BaseResponseDto<TemporadaDto>), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(BaseResponseDto<TemporadaDto>), StatusCodes.Status500InternalServerError)]
@@ -125,6 +129,7 @@ namespace TSL.WebApi.Controllers.v1
 
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(BaseResponseDto<TemporadaDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BaseResponseDto<TemporadaDto>), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(BaseResponseDto<TemporadaDto>), StatusCodes.Status500InternalServerError)]
@@ -142,6 +147,7 @@ namespace TSL.WebApi.Controllers.v1
         #region POST Endpoints
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(typeof(BaseResponseDto<TemporadaDto>), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(BaseResponseDto<TemporadaDto>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(BaseResponseDto<TemporadaDto>), StatusCodes.Status500InternalServerError)]
@@ -158,6 +164,7 @@ namespace TSL.WebApi.Controllers.v1
         #region PUT Endpoints
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(typeof(BaseResponseDto<TemporadaDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BaseResponseDto<TemporadaDto>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(BaseResponseDto<TemporadaDto>), StatusCodes.Status404NotFound)]
@@ -176,6 +183,7 @@ namespace TSL.WebApi.Controllers.v1
         #region DELETE Endpoints
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(typeof(BaseResponseDto<int>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BaseResponseDto<int>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(BaseResponseDto<int>), StatusCodes.Status404NotFound)]
@@ -193,6 +201,7 @@ namespace TSL.WebApi.Controllers.v1
         #region PATCH Endpoints
 
         [HttpPatch("{id}/finalizar")]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(typeof(BaseResponseDto<TemporadaDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BaseResponseDto<TemporadaDto>), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(BaseResponseDto<TemporadaDto>), StatusCodes.Status500InternalServerError)]

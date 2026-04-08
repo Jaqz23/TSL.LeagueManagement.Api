@@ -1,4 +1,5 @@
 ﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TSL.Core.Application.Dtos.Common;
 using TSL.Core.Application.Dtos.TablaPosicion;
@@ -21,6 +22,7 @@ namespace TSL.WebApi.Controllers.v1
         // Obtiene la posicion de un equipo en una tabla especifica
 
         [HttpGet("equipo/{equipoId}/tabla/{tablaId}")]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(BaseResponseDto<PosicionEquipoDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BaseResponseDto<PosicionEquipoDto>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(BaseResponseDto<PosicionEquipoDto>), StatusCodes.Status500InternalServerError)]
@@ -34,6 +36,7 @@ namespace TSL.WebApi.Controllers.v1
         // Obtiene la posicion actual de un equipo en una temporada
 
         [HttpGet("equipo/{equipoId}/temporada/{temporadaId}")]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(BaseResponseDto<PosicionEquipoDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BaseResponseDto<PosicionEquipoDto>), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(BaseResponseDto<PosicionEquipoDto>), StatusCodes.Status500InternalServerError)]
@@ -46,6 +49,7 @@ namespace TSL.WebApi.Controllers.v1
 
 
         [HttpGet("equipo/{equipoId}/historial")]
+        [Authorize]
         [ProducesResponseType(typeof(BaseResponseDto<List<PosicionEquipoDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(BaseResponseDto<List<PosicionEquipoDto>>), StatusCodes.Status404NotFound)]
@@ -59,6 +63,7 @@ namespace TSL.WebApi.Controllers.v1
 
 
         [HttpGet("equipo/{equipoId}/tabla/{tablaId}/existe")]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(BaseResponseDto<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BaseResponseDto<bool>), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(BaseResponseDto<bool>), StatusCodes.Status500InternalServerError)]
@@ -75,6 +80,7 @@ namespace TSL.WebApi.Controllers.v1
         #region POST Endpoints
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(typeof(BaseResponseDto<PosicionEquipoDto>), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(BaseResponseDto<PosicionEquipoDto>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(BaseResponseDto<PosicionEquipoDto>), StatusCodes.Status500InternalServerError)]
@@ -92,6 +98,7 @@ namespace TSL.WebApi.Controllers.v1
         #region PATCH Endpoints
 
         [HttpPatch("{id}/reiniciar")]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(typeof(BaseResponseDto<PosicionEquipoDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BaseResponseDto<PosicionEquipoDto>), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(BaseResponseDto<PosicionEquipoDto>), StatusCodes.Status500InternalServerError)]
@@ -108,6 +115,7 @@ namespace TSL.WebApi.Controllers.v1
         #region PATCH Endpoints
 
         [HttpDelete("tabla/{tablaId}/eliminar-todas")]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(typeof(BaseResponseDto<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BaseResponseDto<bool>), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(BaseResponseDto<bool>), StatusCodes.Status500InternalServerError)]

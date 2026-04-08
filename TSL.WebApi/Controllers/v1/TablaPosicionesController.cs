@@ -1,4 +1,5 @@
 ﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TSL.Core.Application.Dtos.Common;
 using TSL.Core.Application.Dtos.TablaPosicion;
@@ -19,6 +20,7 @@ namespace TSL.WebApi.Controllers.v1
         #region GET Endpoints
 
         [HttpGet("temporada/{temporadaId}")]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(BaseResponseDto<TablaPosicionDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BaseResponseDto<TablaPosicionDto>), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(BaseResponseDto<TablaPosicionDto>), StatusCodes.Status500InternalServerError)]
@@ -31,6 +33,7 @@ namespace TSL.WebApi.Controllers.v1
 
 
         [HttpGet("temporada/{temporadaId}/existe")]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(BaseResponseDto<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BaseResponseDto<bool>), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(BaseResponseDto<bool>), StatusCodes.Status500InternalServerError)]
@@ -47,6 +50,7 @@ namespace TSL.WebApi.Controllers.v1
         #region POST Endpoints
 
         [HttpPost("temporada/{temporadaId}/recalcular")]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(typeof(BaseResponseDto<TablaPosicionDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BaseResponseDto<TablaPosicionDto>), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(BaseResponseDto<TablaPosicionDto>), StatusCodes.Status500InternalServerError)]
