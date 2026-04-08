@@ -158,7 +158,7 @@ Each match includes:
 |--------|----------|-------------|--------|
 | GET | `/equipo/{equipoId}/tabla/{tablaId}` | Get team position | Public |
 | GET | `/equipo/{equipoId}/temporada/{temporadaId}` | Get current position | Public |
-| GET | `/equipo/{equipoId}/historial` | Get historical positions | **Authenticated** 🔒 |
+| GET | `/equipo/{equipoId}/historial` | Get historical positions | **Authenticated**  |
 | GET | `/existe` | Check position exists | Public |
 | POST | `/` | Inscribe team to season | Admin |
 | PATCH | `/{id}/reiniciar` | Reset team stats | Admin |
