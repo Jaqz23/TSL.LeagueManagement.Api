@@ -12,6 +12,7 @@ namespace TSL.Infrastructure.Persistence.Contexts
 
         public DbSet<Liga> Ligas { get; set; }
         public DbSet<Temporada> Temporadas { get; set; }
+        public DbSet<Equipo> Equipos { get; set; }
         public DbSet<Partido> Partidos { get; set; }
         public DbSet<TablaPosicion> TablasPosiciones { get; set; }
         public DbSet<PosicionEquipo> PosicionesEquipos { get; set; }
