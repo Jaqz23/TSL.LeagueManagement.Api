@@ -12,6 +12,15 @@ namespace TSL.Infrastructure.Persistence.Repositories
         {
         }
 
+        public override async Task<List<Partido>> GetAllAsync() 
+        {
+            return await _dbSet
+                .Include(p => p.Temporada)
+                .Include(p => p.EquipoLocal)
+                .Include(p => p.EquipoVisitante)
+                .ToListAsync();
+        }
+
         public async Task<Partido?> GetByIdWithDetallesAsync(int id)
         {
             return await _dbSet
