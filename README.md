@@ -251,3 +251,11 @@ Each match includes:
 ```bash
    dotnet run --project TSL.WebAPI
 ```
+
+---
+
+## Frontend
+
+This API is consumed by the TSL frontend, built with Angular 21 and Angular Material, providing a modern and minimalist interface for managing football leagues.
+
+👉 [TSL Frontend](https://github.com/TU_USUARIO/tsl-frontend)
