@@ -15,7 +15,7 @@ namespace TSL.Infrastructure.Identity.Settings
         public string Audience { get; set; } = string.Empty ;
 
         [Range(1, 1440, ErrorMessage = "La duración debe estar entre 1 y 1440 minutos (24 horas)")]
-        public int DurationInMinutes { get; set; } = 60;
+        public int DurationInMinutes { get; set; } = 120;
 
         [Range(1, 90, ErrorMessage = "La duración del Refresh Token debe estar entre 1 y 90 días")]
         public int RefreshTokenDurationInDays { get; set; } = 7;
